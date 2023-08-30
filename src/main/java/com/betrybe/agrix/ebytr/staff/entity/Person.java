@@ -28,6 +28,7 @@ public class Person {
 
   private Role role;
 
+  /** construtor da classe Person. */
   public Person(Long id, String username, String password, Role role) {
     super();
     this.id = id;
