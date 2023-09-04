@@ -20,7 +20,7 @@ public class TokenService {
   public String generateToken(Person person) {
     Algorithm algorithm = Algorithm.HMAC256(secret);
     return JWT.create()
-        .withIssuer("trybetrack")
+        .withIssuer("agrix")
         .withSubject(person.getUsername())
         .withExpiresAt(generateExpirationDate())
         .sign(algorithm);
@@ -30,5 +30,15 @@ public class TokenService {
     return LocalDateTime.now()
         .plusHours(2)
         .toInstant(ZoneOffset.of("-03:00"));
+  }
+
+  /** Validação do token. */
+  public String validateToken(String token) {
+    Algorithm algorithm = Algorithm.HMAC256(secret);
+    return JWT.require(algorithm)
+        .withIssuer("agrix")
+        .build()
+        .verify(token)
+        .getSubject();
   }
 }
